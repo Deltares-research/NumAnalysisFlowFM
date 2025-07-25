@@ -1,0 +1,67 @@
+\casesection{Poiseuille flow with partial slip sidewalls\label{case:poiseuillepartialslip}}
+
+
+\paragraph*{Purpose}
+The purpose of this validation case is to examine the performance of D-Flow FM for a plane Poiseuille flow simulation with a partial slip condition at the sidewalls. By 'partial slip', it is meant that the streamwise velocities at the wall are not zero though dictated by friction. D-Flow FM treats this kind of boundaries by imposing wall friction based on the logarithmic law-of-the-wall. 
+
+Poiseuille flow is pressure-induced flow in a long duct, in which case the flow is confined by two sidewalls. Poiseuille flow is distinguished from drag-induced flow such as Couette flow. Furthermore, it is assumed that there is laminar flow of an incompressible Newtonian fluid of dynamic viscosity $\mu$) induced by a constant positive pressure difference or pressure drop $\Delta p$ in a channel of length $L$ and width $B \ll L$. 
+
+In fact, a Poisseuille flow with partial slip sidewalls comprises an internal contradiction, since Poisseuille flow is inherently laminar, whereas partial slip is based on a turbulent wall-law. Nonetheless, this hypothetical testcase facilitates useful comparison from an academic point of view.
+
+
+\paragraph*{Linked claims}
+Claims that are related to the current test case are:
+\begin{itemize}
+\item \clrefnoh{cl:diffusionPartialslip}
+\end{itemize}
+
+
+\paragraph*{Approach}
+For this two-dimensional test case, $x$ and $y$ are defined as the longitudinal and lateral coordinates, respectively, with respective velocity components $u$ and $v$. The origin of the coordinate system is put at the center of the entrance of the channel. The flow is driven by a pressure gradient $\nabla p = (-P,0) = (-\rho g \Delta H / L,0)$ with $\Delta H$ the water level difference between the outflow boundary and inflow boundary, prescribing a flat bottom. The kinematic viscosity $\nu = \mu/\rho$ is used. Given the context of the shallow water equations, a uniform horizontal eddy viscosity $\nu_h$ is used instead.
+
+At the sidewalls, i.e.\ at $y = \pm B/2$, a partial slip condition is prescribed. This condition is implemented on the basis of a factor $\alpha$, being a constant of proportionality between the friction velocity $u_*$ and the actual velocity $u$, such that $u_* = \alpha u$. This factor $\alpha$ is prescribed as:
+\begin{equation}
+\alpha = \kappa \Big/ \ln \left( 1+\frac{\Delta y}{2y_0} \right),
+\end{equation}
+in which $\kappa$ Von K\'arm\'an's constant equal to 0.41, $y_0 = k_s/30$ and $\Delta y$ the grid size of a cell adjacent to the wall. The parameter $k_s$ is specified in the \texttt{mdu}-file. Using the coefficients $c_0$ and $c_1$:
+\begin{equation}
+c_0  = -g\frac{\Delta H}{2L} \hspace{1cm} \textrm{and} \hspace{1cm} c_1 =
+\frac{\nu_h}{\alpha}\sqrt{B \cdot c_0} + c_0 \left(\frac{B-\Delta y}{2} \right)^2,
+\end{equation}
+the velocity profile can now be predicted by:
+\begin{equation}
+u(y) = \frac{c_1 - c_0 y^2}{\nu_h} \hspace{1cm} \textrm{and} \hspace{1cm} v = 0.
+\end{equation}
+
+
+\paragraph*{Model description}
+A Cartesian grid consisting of $200 \times 20$ cells is established, covering a domain of sizes $L \times B$ equal to $10~\textrm{km} \times 1~\textrm{km}$. A flat bottom is used. The following flow settings are chosen:
+\begin{itemize}
+\item constant horizontal eddy viscosity $\nu_h = 0.1~\textrm{m}^2/\textrm{s}$,
+\item Nikuradse roughness $k_s = 0.1~\textrm{m}$,
+\item water level drop $\Delta H = -1.0\cdot10^{-4}~\textrm{m}$.
+\end{itemize}
+Through these parameters, the analytical velocity profile is fully determined. The advection scheme nr. 3 (assigned as \texttt{Perot q(uio-u)}) is used.
+
+
+\paragraph*{Results}
+First, the solution has to reach a steady state. To check if the steady state has been reached, the criterion $|\partial u / \partial t |_{\infty} < 10^{-10}~\textrm{m/s}^2$ is used. The computed velocity profile at the center of the domain is shown in comparison with the analytical solution in \Fref{fig:poiseuillepartialslip}.
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=0.65\columnwidth]{figures/poiseuillepartialslip.png}
+\end{center}\caption{Computed profile and analytical profile for the plane Poiseuille flow case with partial slip sidewalls. \label{fig:poiseuillepartialslip}}
+\end{figure}
+
+The computed results tend to slightly underestimate the analytical results. The computed results near the centerline (not \emph{at} the centerline, due to staggering) differs -0.7261\% from its analytical counterpart. This issue is currently under investigation by Mart Borsboom. The maximum absolute lateral velocity is of the order of $10^{-8}~\textrm{m/s}$.
+
+
+\paragraph*{Conclusion}
+For plane Poisseuille flow with partial slip sidewalls, D-Flow FM approximates the analytical solution fairly well: the parabolic profile is reproduced and the maximum velocity is approximated within 1\% accuracy. The numerical results tend to underestimate the analytical results.
+
+
+
+\paragraph*{Version}
+This test has been carried out with version dflow-fm-x64-1.1.116.36629.
+
+

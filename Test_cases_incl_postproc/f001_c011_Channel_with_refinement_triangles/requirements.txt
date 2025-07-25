@@ -1,0 +1,8 @@
+# Auto-generated requirements.txt
+# Generated from Python files: 1Dcase_2Ddata_plotter.py
+# Install with: pip install -r requirements.txt
+
+matplotlib
+netCDF4
+numpy
+scipy

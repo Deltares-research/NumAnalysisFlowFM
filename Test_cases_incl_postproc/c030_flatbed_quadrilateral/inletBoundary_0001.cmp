@@ -1,0 +1,5 @@
+* COLUMNN=3
+* COLUMN1=Period (The period of the inlet velocity)
+* COLUMN2=Amplitude (The amplitude of the inlet velocity)
+* COLUMN3=Amplitude (The phase of the inlet velocity)
+0.0 0.10000 0.0

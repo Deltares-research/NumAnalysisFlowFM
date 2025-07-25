@@ -1,0 +1,7 @@
+# Auto-generated requirements.txt
+# Generated from Python files: no_slip_poisseuille_plotter.py
+# Install with: pip install -r requirements.txt
+
+matplotlib
+netCDF4
+numpy

@@ -1,0 +1,7 @@
+# Auto-generated requirements.txt
+# Generated from Python files: 1.Rate_of_convergence.py, 2Dcase_2Ddata_plotter.py
+# Install with: pip install -r requirements.txt
+
+matplotlib
+netCDF4
+numpy
