@@ -1,1 +1,1 @@
-Repository used for the analysis of numerical properties of DFlow-FM by the Computational Core Team.
+Repository used for the analysis of numerical properties of D-Flow FM by the Computational Core Team.
